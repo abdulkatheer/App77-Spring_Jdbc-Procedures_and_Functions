@@ -1,0 +1,61 @@
+INSERT EMPLOYEE
+---------------
+
+CREATE OR REPLACE PROCEDURE insertEmployee(eid IN NUMBER, ename IN VARCHAR2, esal IN FLOAT, eaddr IN VARCHAR2)
+AS
+BEGIN
+    INSERT INTO employee VALUES(eid, ename, esal, eaddr);
+    COMMIT;
+END insertEmployee;
+/
+
+DELETE EMPLOYEE
+---------------
+
+CREATE OR REPLACE PROCEDURE deleteEmployee(eid IN NUMBER)
+AS
+BEGIN
+    DELETE FROM employee WHERE employee.eid = eid;
+    COMMIT;
+END deleteEmployee;
+/
+
+GET ALL EMPLOYEES
+-----------------
+
+CREATE OR REPLACE PROCEDURE getAllEmployees(employees OUT SYS_REFCURSOR)
+AS
+BEGIN
+    OPEN employees FOR SELECT * FROM employee;
+END getAllEmployees;
+/
+
+GET SALARY
+----------
+
+CREATE OR REPLACE PROCEDURE getSalary(id IN NUMBER, salary OUT NUMBER)
+AS
+BEGIN
+    SELECT esal INTO salary FROM employee WHERE eid = id;
+END getSalary;
+/
+
+UPDATE EMPLOYEE
+---------------
+
+CREATE OR REPLACE PROCEDURE updateEmployee(id IN NUMBER, name IN VARCHAR2, sal IN FLOAT, addr IN VARCHAR2)
+AS
+BEGIN
+    UPDATE employee SET ename = name, esal = sal, eaddr = addr WHERE eid = id;
+END updateEmployee;
+/
+
+GET EMPLOYEE
+------------
+
+CREATE OR REPLACE PROCEDURE getEmployee(id IN NUMBER, employee OUT SYS_REFCURSOR)
+AS
+BEGIN
+    OPEN employee FOR SELECT * FROM employee WHERE eid = id;
+END getEmployee;
+/
